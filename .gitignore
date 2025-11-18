@@ -1,0 +1,14 @@
+node_modules/
+dist/
+/.env
+*.log
+uploads/
+client/node_modules/
+server/node_modules/
+client/.env
+server/.env
+npm-debug.log*
+.DS_Store
+/.vscode/
+coverage/
+*.local

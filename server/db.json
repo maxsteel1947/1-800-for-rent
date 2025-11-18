@@ -1,0 +1,68 @@
+{
+  "users": [
+    {
+      "id": "owner-1",
+      "name": "Owner One",
+      "email": "owner@example.com",
+      "role": "owner",
+      "password": "$2a$08$fkgyn7CQsHq1I/wB0vrJWOxoLqRqQIylVKeeCy3wSGk.a60OQNoyu"
+    }
+  ],
+  "properties": [
+    {
+      "id": "prop-1",
+      "ownerId": "owner-1",
+      "name": "Sunrise PG",
+      "address": "123 Main St",
+      "rooms": 10,
+      "amenities": [
+        "WiFi",
+        "AC"
+      ]
+    }
+  ],
+  "tenants": [
+    {
+      "id": "tenant-1",
+      "name": "Alice",
+      "phone": "9999999999",
+      "propertyId": "prop-1",
+      "room": "A1",
+      "rent": 8000,
+      "deposit": 10000,
+      "moveIn": "2025-11-01"
+    }
+  ],
+  "payments": [
+    {
+      "id": "pay-1",
+      "tenantId": "tenant-1",
+      "propertyId": "prop-1",
+      "amount": 8000,
+      "date": "2025-11-05",
+      "method": "UPI",
+      "status": "paid"
+    }
+  ],
+  "documents": [
+    {
+      "id": "pyfSoW7E6-3w9ilRdsIJ4",
+      "filename": "1763484287878-Bondex_Token_Economy_2023.pdf",
+      "original": "Bondex_Token_Economy_2023.pdf",
+      "tenantId": null,
+      "propertyId": null,
+      "uploadedAt": "2025-11-18T16:44:48.003Z"
+    }
+  ],
+  "maintenance": [
+    {
+      "id": "rodr3aZKygCyKXmRAmE2V",
+      "status": "open",
+      "createdAt": "2025-11-18T17:23:24.007Z",
+      "propertyId": "Prop - 2",
+      "room": "B123",
+      "issue": "toti"
+    }
+  ],
+  "bookings": []
+}
