@@ -1,5 +1,7 @@
 import axios from 'axios'
-const API = import.meta.env.VITE_API_URL || 'http://localhost:4000/api'
+
+// Use relative API URL in production, localhost in development
+const API = import.meta.env.PROD ? '/api' : (import.meta.env.VITE_API_URL || 'http://localhost:4000/api')
 
 const api = axios.create({ baseURL: API })
 

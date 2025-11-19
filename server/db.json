@@ -5,16 +5,16 @@
       "name": "Owner One",
       "email": "owner@example.com",
       "role": "owner",
-      "password": "$2a$08$eQOcc9vH/qId60eYUw7qX.K4hRV8Tt0EWATIdvfhjitPnjnwXGTx6"
+      "password": "$2a$08$yt749x7WzWeRurUhQifJduiLb1CHQsmX3b.HM3C98DSLduwYOu4PC"
     },
     {
-      "id": "vuXiEeePasdYOCqmyNcmi",
+      "id": "MNs819PzU4E4Ruc7koZe9",
       "email": "maxsteel1947@gmail.com",
-      "password": "$2a$10$TTXUnP00atu9oNeJZotkTuX1Ed57NpjA5g3l9HChezH1TucDkrSAS",
+      "password": "$2a$10$1n4tfi8IId9j9DGJ9d028eI2ylcTdSl5UhMnAVTW9htjNJiRKXEgm",
       "fullName": "max steel",
       "companyName": "company",
       "phone": "+91378565460",
-      "createdAt": "2025-11-19T04:02:11.457Z",
+      "createdAt": "2025-11-19T04:16:35.523Z",
       "isActive": true
     }
   ],
@@ -31,8 +31,8 @@
       ]
     },
     {
-      "id": "dxThSdg121n_EYyFCeXxy",
-      "userId": "vuXiEeePasdYOCqmyNcmi",
+      "id": "Wbn6hNXLQBRh8bLI98zSV",
+      "userId": "MNs819PzU4E4Ruc7koZe9",
       "name": "company Property",
       "address": "123 Main Street, City",
       "rooms": 5,
@@ -42,32 +42,6 @@
         "Parking",
         "Food"
       ]
-    },
-    {
-      "id": "7fqevSgkFgwSOuaqMpUFf",
-      "userId": "vuXiEeePasdYOCqmyNcmi",
-      "name": "Villa",
-      "address": "asdf",
-      "rooms": 5,
-      "amenities": [
-        "WiFi",
-        "AC",
-        "Parking",
-        "Food",
-        "Laundry",
-        "Gym",
-        "Security",
-        "Power Backup",
-        "Water Supply",
-        "Housekeeping",
-        "Reception",
-        "CCTV",
-        "Lift",
-        "RO Water",
-        "Common Area"
-      ],
-      "rentPerRoom": 15000,
-      "depositPerRoom": 50000
     }
   ],
   "tenants": [
@@ -82,11 +56,11 @@
       "moveIn": "2025-11-01"
     },
     {
-      "id": "Lyos3JtUeHC3V4x16SfBT",
-      "userId": "vuXiEeePasdYOCqmyNcmi",
+      "id": "82EV_TQF5Jb3hUd_EzRoJ",
+      "userId": "MNs819PzU4E4Ruc7koZe9",
       "name": "John Doe",
       "phone": "+919876543210",
-      "propertyId": "dxThSdg121n_EYyFCeXxy",
+      "propertyId": "Wbn6hNXLQBRh8bLI98zSV",
       "room": "A101",
       "rent": 8000,
       "deposit": 10000,
@@ -95,23 +69,6 @@
       "emergencyContact": "+919876543211",
       "idProofType": "Aadhaar",
       "idNumber": "1234-5678-9012"
-    },
-    {
-      "id": "4LWh5Y_tpm2VP8kSlYa1r",
-      "userId": "vuXiEeePasdYOCqmyNcmi",
-      "name": "admin",
-      "phone": "+9197097188",
-      "propertyId": "7fqevSgkFgwSOuaqMpUFf",
-      "room": "3",
-      "rent": 15000,
-      "deposit": 50000,
-      "moveIn": "2025-11-01",
-      "moveOut": "2026-02-28",
-      "rentDueDate": "2025-11-01",
-      "emergencyContact": "",
-      "healthInfo": "",
-      "idProofType": "Passport",
-      "idNumber": "asdfsdf522"
     }
   ],
   "payments": [
@@ -125,10 +82,10 @@
       "status": "paid"
     },
     {
-      "id": "1x6MAHc5_y_1SPl8O51wu",
-      "userId": "vuXiEeePasdYOCqmyNcmi",
-      "tenantId": "Lyos3JtUeHC3V4x16SfBT",
-      "propertyId": "dxThSdg121n_EYyFCeXxy",
+      "id": "Kw3KHfaWXMjWFp11fmucg",
+      "userId": "MNs819PzU4E4Ruc7koZe9",
+      "tenantId": "82EV_TQF5Jb3hUd_EzRoJ",
+      "propertyId": "Wbn6hNXLQBRh8bLI98zSV",
       "amount": 8000,
       "date": "2025-11-19",
       "method": "UPI",
