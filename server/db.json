@@ -5,16 +5,16 @@
       "name": "Owner One",
       "email": "owner@example.com",
       "role": "owner",
-      "password": "$2a$08$AuqiO49jenn8PEouif0b0eaXKOsDNOLlcMzgrtJuks1aAOdIy4G7K"
+      "password": "$2a$08$xodnZuQYkpuWRTor.ILuCe2JFsY7.0is/CdAGb2lCr0ngDgilDSGi"
     },
     {
-      "id": "jGhH6VF5ZJN-inOg1Plpn",
-      "email": "maxsteel1947@gmail.com",
-      "password": "$2a$10$5ahLlFMHFBI2ofUUaPSsjePz1pJ7iDWf9/7JG.NAeOCK2WBaj6sLW",
-      "fullName": "max steel",
-      "companyName": "company",
-      "phone": "+91378565460",
-      "createdAt": "2025-11-19T05:11:02.697Z",
+      "id": "47b_7SFNkd3ljzpl1fNPM",
+      "email": "localtest@example.com",
+      "password": "$2a$10$HZPnKI6llNHx4.mmZlXUdevpIBbnHPRXjX9uP/F7HLkFB9TI8I/Pe",
+      "fullName": "Local Test",
+      "companyName": "",
+      "phone": "",
+      "createdAt": "2025-11-19T05:32:52.150Z",
       "isActive": true
     }
   ],
@@ -31,9 +31,9 @@
       ]
     },
     {
-      "id": "aMB9ZgmFc88xKqILC0HF5",
-      "userId": "jGhH6VF5ZJN-inOg1Plpn",
-      "name": "company Property",
+      "id": "2YCXsoOkOXVBST5GBpnQS",
+      "userId": "47b_7SFNkd3ljzpl1fNPM",
+      "name": "My Property",
       "address": "123 Main Street, City",
       "rooms": 5,
       "amenities": [
@@ -56,11 +56,11 @@
       "moveIn": "2025-11-01"
     },
     {
-      "id": "YC_dj06UzrD-hzW75laxL",
-      "userId": "jGhH6VF5ZJN-inOg1Plpn",
+      "id": "6ByIagcaMZYTrJRefsIzU",
+      "userId": "47b_7SFNkd3ljzpl1fNPM",
       "name": "John Doe",
       "phone": "+919876543210",
-      "propertyId": "aMB9ZgmFc88xKqILC0HF5",
+      "propertyId": "2YCXsoOkOXVBST5GBpnQS",
       "room": "A101",
       "rent": 8000,
       "deposit": 10000,
@@ -82,10 +82,10 @@
       "status": "paid"
     },
     {
-      "id": "O_WykVMI5Quce7qnzI54P",
-      "userId": "jGhH6VF5ZJN-inOg1Plpn",
-      "tenantId": "YC_dj06UzrD-hzW75laxL",
-      "propertyId": "aMB9ZgmFc88xKqILC0HF5",
+      "id": "8VhHUESbv606N6OaZQIEU",
+      "userId": "47b_7SFNkd3ljzpl1fNPM",
+      "tenantId": "6ByIagcaMZYTrJRefsIzU",
+      "propertyId": "2YCXsoOkOXVBST5GBpnQS",
       "amount": 8000,
       "date": "2025-11-19",
       "method": "UPI",
