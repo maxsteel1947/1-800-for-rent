@@ -10,7 +10,8 @@ router.use(userDataAccess);
 
 router.get('/', (req, res) => {
   const db = readDB();
-  res.json(db.tenants);
+  const userTenants = db.tenants.filter(t => t.userId === req.userId);
+  res.json(userTenants);
 });
 
 router.post('/', (req, res) => {
@@ -27,11 +28,6 @@ router.post('/', (req, res) => {
     deposit: Number(body.deposit) || 0,
     moveIn: body.moveIn || null,
     moveOut: body.moveOut || null,
-    rentDueDate: body.rentDueDate || null,
-    emergencyContact: body.emergencyContact || '',
-    healthInfo: body.healthInfo || '',
-    idProofType: body.idProofType || '',
-    idNumber: body.idNumber || ''
   };
   db.tenants.push(tenant);
   writeDB(db);
@@ -41,46 +37,34 @@ router.post('/', (req, res) => {
 // Find tenant by phone (placed before id route to avoid route conflicts)
 router.get('/phone/:phone', (req, res) => {
   const db = readDB();
-  const t = db.tenants.find(x => x.phone === req.params.phone);
+  const t = db.tenants.find(x => x.phone === req.params.phone && x.userId === req.userId);
   if (!t) return res.status(404).json({ error: 'Not found' });
   res.json(t);
 });
 
 router.get('/:id', (req, res) => {
   const db = readDB();
-  const t = db.tenants.find(x => x.id === req.params.id);
+  const t = db.tenants.find(x => x.id === req.params.id && x.userId === req.userId);
   if (!t) return res.status(404).json({ error: 'Not found' });
   res.json(t);
 });
 
 router.put('/:id', (req, res) => {
   const db = readDB();
-  const idx = db.tenants.findIndex(x => x.id === req.params.id);
+  const idx = db.tenants.findIndex(x => x.id === req.params.id && x.userId === req.userId);
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
-  const body = req.body || {};
-  db.tenants[idx] = {
-    ...db.tenants[idx],
-    ...body,
-    rent: body.rent !== undefined ? Number(body.rent) : db.tenants[idx].rent,
-    deposit: body.deposit !== undefined ? Number(body.deposit) : db.tenants[idx].deposit
-  };
+  db.tenants[idx] = { ...db.tenants[idx], ...req.body };
   writeDB(db);
   res.json(db.tenants[idx]);
 });
 
 router.delete('/:id', (req, res) => {
   const db = readDB();
-  db.tenants = db.tenants.filter(x => x.id !== req.params.id);
+  const idx = db.tenants.findIndex(x => x.id === req.params.id && x.userId === req.userId);
+  if (idx === -1) return res.status(404).json({ error: 'Not found' });
+  db.tenants.splice(idx, 1);
   writeDB(db);
   res.json({ success: true });
-});
-
-// Find tenant by phone
-router.get('/phone/:phone', (req, res) => {
-  const db = readDB();
-  const t = db.tenants.find(x => x.phone === req.params.phone);
-  if (!t) return res.status(404).json({ error: 'Not found' });
-  res.json(t);
 });
 
 module.exports = router;

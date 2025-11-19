@@ -10,7 +10,8 @@ router.use(userDataAccess);
 
 router.get('/', (req, res) => {
   const db = readDB();
-  res.json(db.properties);
+  const userProperties = db.properties.filter(p => p.userId === req.userId || p.ownerId === req.userId);
+  res.json(userProperties);
 });
 
 router.post('/', (req, res) => {
@@ -23,14 +24,14 @@ router.post('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const db = readDB();
-  const p = db.properties.find(x => x.id === req.params.id);
+  const p = db.properties.find(x => x.id === req.params.id && (x.userId === req.userId || x.ownerId === req.userId));
   if (!p) return res.status(404).json({ error: 'Not found' });
   res.json(p);
 });
 
 router.put('/:id', (req, res) => {
   const db = readDB();
-  const idx = db.properties.findIndex(x => x.id === req.params.id);
+  const idx = db.properties.findIndex(x => x.id === req.params.id && (x.userId === req.userId || x.ownerId === req.userId));
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
   db.properties[idx] = { ...db.properties[idx], ...req.body };
   writeDB(db);
@@ -39,7 +40,9 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   const db = readDB();
-  db.properties = db.properties.filter(x => x.id !== req.params.id);
+  const idx = db.properties.findIndex(x => x.id === req.params.id && (x.userId === req.userId || x.ownerId === req.userId));
+  if (idx === -1) return res.status(404).json({ error: 'Not found' });
+  db.properties.splice(idx, 1);
   writeDB(db);
   res.json({ success: true });
 });

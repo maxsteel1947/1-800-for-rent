@@ -13,7 +13,11 @@ const bookings = require('./routes/bookings');
 const dashboard = require('./routes/dashboard');
 
 const app = express();
-app.use(cors());
+// Enable CORS with specific origins
+app.use(cors({
+  origin: ['https://1800forrent.surge.sh', 'https://1-800-for-rent-production.up.railway.app', 'http://localhost:3000'],
+  credentials: true
+}));
 app.use(bodyParser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 

@@ -12,7 +12,8 @@ router.use(userDataAccess);
 
 router.get('/', (req, res) => {
   const db = readDB();
-  res.json(db.payments);
+  const userPayments = db.payments.filter(p => p.userId === req.userId);
+  res.json(userPayments);
 });
 
 router.post('/', (req, res) => {

@@ -1,13 +1,27 @@
 #!/bin/bash
 
-# Build the client
+# Build the client for production
+echo "Building client for production..."
 cd client
 npm run build
 
-# Copy server files to a public directory for deployment
-mkdir -p ../public/api
-cp -r server/* ../public/api/
-cp -r dist/* ../public/
+# Create a 200.html for SPA routing
+cp index.html dist/200.html
+
+# Create a _redirects file for surge.sh to handle API calls
+cat > dist/_redirects << EOF
+/api/*  https://1-800-for-rent-production.up.railway.app/api/:splat  200
+/*    /index.html   200
+EOF
+
+# Deploy to surge.sh
+echo "Deploying to surge.sh..."
+cd dist
+surge --domain 1800forrent.surge.sh
+
+echo "Deployment complete!"
+echo "Frontend: https://1800forrent.surge.sh"
+echo "Backend API: https://1-800-for-rent-production.up.railway.app"
 
 # Create a simple serverless function for surge.sh
 cat > ../public/api/server.js << 'EOF'
