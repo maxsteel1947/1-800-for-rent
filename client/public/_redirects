@@ -1,2 +1,2 @@
-/api/*  https://1-800-for-rent-production.up.railway.app/api/:splat  200
-/*    /index.html   200
+/api/*    https://1-800-for-rent-production.up.railway.app/api/:splat    200
+/*        /index.html                                            200

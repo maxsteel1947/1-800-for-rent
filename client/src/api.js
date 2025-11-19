@@ -1,9 +1,12 @@
 import axios from 'axios'
 
 // Use relative API URL in production, localhost in development
-const API = import.meta.env.PROD ? '/api' : (import.meta.env.VITE_API_URL || 'http://localhost:4000/api')
+const API = import.meta.env.PROD ? 'https://1-800-for-rent-production.up.railway.app/api' : (import.meta.env.VITE_API_URL || 'http://localhost:4000/api')
 
-const api = axios.create({ baseURL: API })
+const api = axios.create({ 
+  baseURL: API,
+  withCredentials: true
+})
 
 // Add request interceptor to include auth token
 api.interceptors.request.use(

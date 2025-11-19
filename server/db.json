@@ -5,16 +5,16 @@
       "name": "Owner One",
       "email": "owner@example.com",
       "role": "owner",
-      "password": "$2a$08$oZQ5xt.Bs6OyL63C5R4GeuZeOR9FYvVuiRJ8e1UMsWzI.lCtUVznu"
+      "password": "$2a$08$AuqiO49jenn8PEouif0b0eaXKOsDNOLlcMzgrtJuks1aAOdIy4G7K"
     },
     {
-      "id": "6R2QBsBpbrDghioOY2NiZ",
-      "email": "bhadkaubhaijan@gmail.com",
-      "password": "$2a$10$RXL.J4FdvGXZPkymrT2JguIhkeaH5mQyouidMBumy9IPdMM50rgli",
-      "fullName": "Bhadkau",
-      "companyName": "Sota",
-      "phone": "51616161611",
-      "createdAt": "2025-11-19T05:01:02.613Z",
+      "id": "jGhH6VF5ZJN-inOg1Plpn",
+      "email": "maxsteel1947@gmail.com",
+      "password": "$2a$10$5ahLlFMHFBI2ofUUaPSsjePz1pJ7iDWf9/7JG.NAeOCK2WBaj6sLW",
+      "fullName": "max steel",
+      "companyName": "company",
+      "phone": "+91378565460",
+      "createdAt": "2025-11-19T05:11:02.697Z",
       "isActive": true
     }
   ],
@@ -31,9 +31,9 @@
       ]
     },
     {
-      "id": "vbrmcbQ3ikCBCDU0NHhdG",
-      "userId": "6R2QBsBpbrDghioOY2NiZ",
-      "name": "Sota Property",
+      "id": "aMB9ZgmFc88xKqILC0HF5",
+      "userId": "jGhH6VF5ZJN-inOg1Plpn",
+      "name": "company Property",
       "address": "123 Main Street, City",
       "rooms": 5,
       "amenities": [
@@ -56,11 +56,11 @@
       "moveIn": "2025-11-01"
     },
     {
-      "id": "ZFbAkbTsAzhvnR3md15Bv",
-      "userId": "6R2QBsBpbrDghioOY2NiZ",
+      "id": "YC_dj06UzrD-hzW75laxL",
+      "userId": "jGhH6VF5ZJN-inOg1Plpn",
       "name": "John Doe",
       "phone": "+919876543210",
-      "propertyId": "vbrmcbQ3ikCBCDU0NHhdG",
+      "propertyId": "aMB9ZgmFc88xKqILC0HF5",
       "room": "A101",
       "rent": 8000,
       "deposit": 10000,
@@ -82,10 +82,10 @@
       "status": "paid"
     },
     {
-      "id": "b0DwvMSmtyzvWvsGUOoiF",
-      "userId": "6R2QBsBpbrDghioOY2NiZ",
-      "tenantId": "ZFbAkbTsAzhvnR3md15Bv",
-      "propertyId": "vbrmcbQ3ikCBCDU0NHhdG",
+      "id": "O_WykVMI5Quce7qnzI54P",
+      "userId": "jGhH6VF5ZJN-inOg1Plpn",
+      "tenantId": "YC_dj06UzrD-hzW75laxL",
+      "propertyId": "aMB9ZgmFc88xKqILC0HF5",
       "amount": 8000,
       "date": "2025-11-19",
       "method": "UPI",
