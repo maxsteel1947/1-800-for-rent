@@ -143,7 +143,9 @@ export default function Documents(){
           style={{width: '60px', height: '60px', objectFit: 'cover', borderRadius: '4px'}}
           onError={(e) => {
             e.target.style.display = 'none'
-            e.target.nextSibling.style.display = 'flex'
+            if (e.target.nextSibling) {
+              e.target.nextSibling.style.display = 'flex'
+            }
           }}
         />
       )

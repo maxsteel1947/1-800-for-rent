@@ -10,6 +10,26 @@ const { authenticateToken, userDataAccess } = require('../middleware/auth');
 router.use(authenticateToken);
 router.use(userDataAccess);
 
+// Multer error handling middleware
+router.use((error, req, res, next) => {
+  if (error instanceof multer.MulterError) {
+    if (error.code === 'LIMIT_FILE_SIZE') {
+      return res.status(400).json({ error: 'File too large. Maximum size is 10MB.' });
+    }
+    if (error.code === 'LIMIT_FILE_COUNT') {
+      return res.status(400).json({ error: 'Too many files uploaded.' });
+    }
+    if (error.code === 'LIMIT_UNEXPECTED_FILE') {
+      return res.status(400).json({ error: 'Unexpected file field.' });
+    }
+    return res.status(400).json({ error: 'File upload error: ' + error.message });
+  }
+  if (error.message.includes('Invalid file type')) {
+    return res.status(400).json({ error: error.message });
+  }
+  next(error);
+});
+
 function filterDataByUser(data, userId) {
   if (!userId) return data;
   return data.filter(item => item.userId === userId);
@@ -41,7 +61,19 @@ const upload = multer({
 
 router.post('/upload', upload.single('file'), (req, res) => {
   try {
+    console.log('Document upload request:', {
+      file: req.file ? {
+        originalname: req.file.originalname,
+        filename: req.file.filename,
+        mimetype: req.file.mimetype,
+        size: req.file.size
+      } : null,
+      body: req.body,
+      userId: req.userId
+    });
+    
     if (!req.file) {
+      console.error('No file uploaded');
       return res.status(400).json({ error: 'No file uploaded' });
     }
     
@@ -57,12 +89,16 @@ router.post('/upload', upload.single('file'), (req, res) => {
       description: req.body.description || '',
       uploadedAt: new Date().toISOString() 
     };
+    
+    console.log('Saving document:', doc);
     db.documents.push(doc);
     writeDB(db);
+    
+    console.log('Document saved successfully');
     res.json(doc);
   } catch (error) {
     console.error('Document upload error:', error);
-    res.status(500).json({ error: 'Failed to upload document' });
+    res.status(500).json({ error: 'Failed to upload document: ' + error.message });
   }
 });
 
