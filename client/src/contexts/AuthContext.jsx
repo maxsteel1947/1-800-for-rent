@@ -14,14 +14,12 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) {
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`
       // Verify token and get user data
       api.get('/auth/verify').then(response => {
         setUser(response.data.user)
         setLoading(false)
       }).catch(() => {
         localStorage.removeItem('token')
-        delete api.defaults.headers.common['Authorization']
         setLoading(false)
       })
     } else {
@@ -35,7 +33,6 @@ export function AuthProvider({ children }) {
       const { token, user } = response.data
       
       localStorage.setItem('token', token)
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`
       setUser(user)
       
       return { success: true }
@@ -53,7 +50,6 @@ export function AuthProvider({ children }) {
       const { token, user } = response.data
       
       localStorage.setItem('token', token)
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`
       setUser(user)
       
       return { success: true }
@@ -67,8 +63,8 @@ export function AuthProvider({ children }) {
 
   const logout = () => {
     localStorage.removeItem('token')
-    delete api.defaults.headers.common['Authorization']
     setUser(null)
+    window.location.href = '/login'
   }
 
   const value = {

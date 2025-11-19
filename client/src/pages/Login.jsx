@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
+import { useNavigate } from 'react-router-dom'
 import './Login.css'
 
 export default function Login() {
@@ -13,20 +14,28 @@ export default function Login() {
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   
   const { login, register } = useAuth()
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
     setError('')
+    setSuccess('')
 
     try {
       const result = isLogin 
         ? await login(formData.email, formData.password)
         : await register(formData)
       
-      if (!result.success) {
+      if (result.success) {
+        setSuccess(isLogin ? 'Login successful! Redirecting...' : 'Account created successfully! Redirecting...')
+        setTimeout(() => {
+          navigate('/')
+        }, 1500)
+      } else {
         setError(result.error)
       }
     } catch (err) {
@@ -63,6 +72,7 @@ export default function Login() {
           </p>
 
           {error && <div className="error-message">{error}</div>}
+          {success && <div className="success-message">{success}</div>}
 
           <form onSubmit={handleSubmit}>
             {!isLogin && (

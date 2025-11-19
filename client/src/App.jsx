@@ -11,6 +11,7 @@ import Login from './pages/Login'
 import Nav from './components/Nav'
 import ProtectedRoute from './components/ProtectedRoute'
 import { AuthProvider } from './contexts/AuthContext'
+import api from './api'
 
 export default function App(){
   return (
@@ -59,14 +60,10 @@ function DashboardWrapper(){
     const fetchDashboard = async () => {
       try {
         setLoading(true)
-        const response = await fetch((import.meta.env.VITE_API_URL || 'http://localhost:4000') + '/api/dashboard')
-        if (!response.ok) {
-          throw new Error('Failed to fetch dashboard data')
-        }
-        const data = await response.json()
-        setDashboard(data)
+        const response = await api.get('/dashboard')
+        setDashboard(response.data)
       } catch (err) {
-        setError(err.message)
+        setError(err.response?.data?.message || err.message || 'Failed to fetch dashboard data')
       } finally {
         setLoading(false)
       }
@@ -77,8 +74,9 @@ function DashboardWrapper(){
 
   if (loading) {
     return (
-      <div style={{ textAlign: 'center', padding: '40px' }}>
-        <div style={{ fontSize: '18px', color: '#667eea' }}>Loading dashboard...</div>
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading dashboard...</p>
       </div>
     )
   }
