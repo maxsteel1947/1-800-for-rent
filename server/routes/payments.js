@@ -4,6 +4,11 @@ const { readDB, writeDB } = require('../db');
 const { nanoid } = require('nanoid');
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
+const { authenticateToken, userDataAccess } = require('../middleware/auth');
+
+// Apply authentication middleware to all payment routes
+router.use(authenticateToken);
+router.use(userDataAccess);
 
 router.get('/', (req, res) => {
   const db = readDB();
@@ -15,6 +20,7 @@ router.post('/', (req, res) => {
   const body = req.body || {};
   const payment = {
     id: nanoid(),
+    userId: req.userId,
     tenantId: body.tenantId || null,
     propertyId: body.propertyId || null,
     amount: Number(body.amount) || 0,

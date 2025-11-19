@@ -33,6 +33,48 @@ const createUser = (userData) => {
   db.documents = db.documents || [];
   db.maintenance = db.maintenance || [];
   
+  // Add sample property for the user
+  const sampleProperty = {
+    id: nanoid(),
+    userId: userId,
+    name: `${user.companyName || 'My'} Property`,
+    address: '123 Main Street, City',
+    rooms: 5,
+    amenities: ['WiFi', 'AC', 'Parking', 'Food']
+  };
+  db.properties.push(sampleProperty);
+  
+  // Add sample tenant
+  const sampleTenant = {
+    id: nanoid(),
+    userId: userId,
+    name: 'John Doe',
+    phone: '+919876543210',
+    propertyId: sampleProperty.id,
+    room: 'A101',
+    rent: 8000,
+    deposit: 10000,
+    moveIn: new Date().toISOString().split('T')[0],
+    rentDueDate: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1).toISOString().split('T')[0],
+    emergencyContact: '+919876543211',
+    idProofType: 'Aadhaar',
+    idNumber: '1234-5678-9012'
+  };
+  db.tenants.push(sampleTenant);
+  
+  // Add sample payment
+  const samplePayment = {
+    id: nanoid(),
+    userId: userId,
+    tenantId: sampleTenant.id,
+    propertyId: sampleProperty.id,
+    amount: 8000,
+    date: new Date().toISOString().split('T')[0],
+    method: 'UPI',
+    status: 'paid'
+  };
+  db.payments.push(samplePayment);
+  
   writeDB(db);
   return user;
 };

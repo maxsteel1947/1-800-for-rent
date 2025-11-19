@@ -7,6 +7,8 @@ import { useParams } from 'react-router-dom'
 import Payments from './pages/Payments'
 import Documents from './pages/Documents'
 import Maintenance from './pages/Maintenance'
+import Properties from './pages/Properties'
+import Reports from './pages/Reports'
 import Login from './pages/Login'
 import Nav from './components/Nav'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -40,9 +42,11 @@ function AuthenticatedApp() {
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<DashboardWrapper/>} />
+            <Route path="/properties" element={<Properties/>} />
             <Route path="/tenants" element={<Tenants/>} />
             <Route path="/tenants/:id" element={<TenantDetailWrapper/>} />
             <Route path="/payments" element={<Payments/>} />
+            <Route path="/reports" element={<Reports/>} />
             <Route path="/documents" element={<Documents/>} />
             <Route path="/maintenance" element={<Maintenance/>} />
           </Routes>

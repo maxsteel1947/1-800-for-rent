@@ -85,5 +85,37 @@ td{padding:10px;border-bottom:1px solid #f1f5f9}
 form input, form select, form textarea{box-sizing:border-box}
 @media (max-width:480px){
   button{width:100%;padding:10px}
+  form input, form select, form textarea{font-size:16px} /* Prevent zoom on iOS */
+}
+
+/* Mobile-specific improvements */
+@media (max-width:768px){
+  .main{padding:12px}
+  .card{padding:16px;margin-bottom:16px}
+  .header{margin-bottom:20px}
+  .header h1{font-size:20px}
+  
+  /* Form improvements */
+  form{width:100%}
+  form label{display:block;margin-bottom:4px;font-weight:500}
+  form input, form select, form textarea{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:6px}
+  
+  /* Table improvements for mobile */
+  .table-responsive{border:1px solid #e5e7eb;border-radius:6px}
+  .table-responsive table{min-width:600px} /* Ensure table stays readable */
+  .table-responsive thead th{position:sticky;top:0;background:#f8fafc;z-index:1}
+  
+  /* Card grid improvements */
+  .card-grid{gap:8px}
+  .card-grid .card{padding:12px}
+}
+
+@media (max-width:480px){
+  .main{padding:8px}
+  .card{padding:12px}
+  .header h1{font-size:18px}
+  
+  /* Compact table for very small screens */
+  .table-responsive td, .table-responsive thead th{padding:6px;font-size:14px}
 }
 

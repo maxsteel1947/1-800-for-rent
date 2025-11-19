@@ -209,3 +209,57 @@
     font-size: 13px;
   }
 }
+
+@media (max-width: 640px) {
+  .sidebar {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    z-index: 1000;
+    border-top: 1px solid #e5e7eb;
+    border-right: none;
+  }
+  
+  .nav-list {
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 8px 0;
+  }
+  
+  .nav-item {
+    flex: 1;
+  }
+  
+  .nav-link {
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    text-align: center;
+    font-size: 11px;
+  }
+  
+  .nav-icon {
+    margin: 0 0 4px 0;
+    font-size: 18px;
+  }
+  
+  .brand {
+    display: none;
+  }
+  
+  .user-info {
+    display: none;
+  }
+  
+  .app-container {
+    padding-bottom: 60px; /* Space for bottom nav */
+  }
+  
+  .main {
+    margin-left: 0;
+    padding: 12px 8px;
+  }
+}

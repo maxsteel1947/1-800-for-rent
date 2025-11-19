@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { readDB, writeDB } = require('../db');
 const { nanoid } = require('nanoid');
+const { authenticateToken, userDataAccess } = require('../middleware/auth');
+
+// Apply authentication middleware to all tenant routes
+router.use(authenticateToken);
+router.use(userDataAccess);
 
 router.get('/', (req, res) => {
   const db = readDB();
@@ -13,6 +18,7 @@ router.post('/', (req, res) => {
   const body = req.body || {};
   const tenant = {
     id: nanoid(),
+    userId: req.userId,
     name: body.name || '',
     phone: body.phone || '',
     propertyId: body.propertyId || null,

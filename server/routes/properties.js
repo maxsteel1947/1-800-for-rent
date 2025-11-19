@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { readDB, writeDB } = require('../db');
 const { nanoid } = require('nanoid');
+const { authenticateToken, userDataAccess } = require('../middleware/auth');
+
+// Apply authentication middleware to all property routes
+router.use(authenticateToken);
+router.use(userDataAccess);
 
 router.get('/', (req, res) => {
   const db = readDB();
@@ -10,7 +15,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   const db = readDB();
-  const property = { id: nanoid(), ...req.body };
+  const property = { id: nanoid(), userId: req.userId, ...req.body };
   db.properties.push(property);
   writeDB(db);
   res.json(property);

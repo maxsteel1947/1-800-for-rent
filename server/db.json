@@ -5,7 +5,17 @@
       "name": "Owner One",
       "email": "owner@example.com",
       "role": "owner",
-      "password": "$2a$08$GYFV1mgtABTevPpQlAUKieCc//na6SvJELhXGWMTbQt5LkaaVMBHe"
+      "password": "$2a$08$uvAUchOLmM78XTldWAfkNeaktGoTXcyztEBObPwCwmSL8MBJ85VBy"
+    },
+    {
+      "id": "2RbCyjNxIs8fuBIMGWJLT",
+      "email": "maxsteel1947@gmail.com",
+      "password": "$2a$10$cJzfbaepE5rz.clC6RNY5.ciz4DbnM0g4k0eLfAzPEQbiOaLw84iS",
+      "fullName": "max steel",
+      "companyName": "company",
+      "phone": "+91378565460",
+      "createdAt": "2025-11-19T03:42:36.639Z",
+      "isActive": true
     }
   ],
   "properties": [
@@ -19,6 +29,19 @@
         "WiFi",
         "AC"
       ]
+    },
+    {
+      "id": "v9KZImvaO12HRQw4U2_Pe",
+      "userId": "2RbCyjNxIs8fuBIMGWJLT",
+      "name": "company Property",
+      "address": "123 Main Street, City",
+      "rooms": 5,
+      "amenities": [
+        "WiFi",
+        "AC",
+        "Parking",
+        "Food"
+      ]
     }
   ],
   "tenants": [
@@ -31,6 +54,21 @@
       "rent": 8000,
       "deposit": 10000,
       "moveIn": "2025-11-01"
+    },
+    {
+      "id": "0eNoDnp4kRDvVvn-VRtgK",
+      "userId": "2RbCyjNxIs8fuBIMGWJLT",
+      "name": "John Doe",
+      "phone": "+919876543210",
+      "propertyId": "v9KZImvaO12HRQw4U2_Pe",
+      "room": "A101",
+      "rent": 8000,
+      "deposit": 10000,
+      "moveIn": "2025-11-19",
+      "rentDueDate": "2025-11-30",
+      "emergencyContact": "+919876543211",
+      "idProofType": "Aadhaar",
+      "idNumber": "1234-5678-9012"
     }
   ],
   "payments": [
@@ -40,6 +78,16 @@
       "propertyId": "prop-1",
       "amount": 8000,
       "date": "2025-11-05",
+      "method": "UPI",
+      "status": "paid"
+    },
+    {
+      "id": "uX2R19KTOi4P_MJgi_IFj",
+      "userId": "2RbCyjNxIs8fuBIMGWJLT",
+      "tenantId": "0eNoDnp4kRDvVvn-VRtgK",
+      "propertyId": "v9KZImvaO12HRQw4U2_Pe",
+      "amount": 8000,
+      "date": "2025-11-19",
       "method": "UPI",
       "status": "paid"
     }
@@ -52,6 +100,44 @@
       "tenantId": null,
       "propertyId": null,
       "uploadedAt": "2025-11-18T16:44:48.003Z"
+    },
+    {
+      "id": "uw7AufGmzqnUZV0kf0SVE",
+      "filename": "1763522923752-MG1_PROFILE.png",
+      "original": "MG1_PROFILE.png",
+      "tenantId": null,
+      "propertyId": null,
+      "uploadedAt": "2025-11-19T03:28:43.788Z"
+    },
+    {
+      "id": "hfPT-V8JRBJwsTis8_FB9",
+      "filename": "1763523170002-MG1_PROFILE.png",
+      "original": "MG1_PROFILE.png",
+      "tenantId": "OH9-03k6U0OhMUlctq4Uj",
+      "propertyId": "Sunrise PG",
+      "uploadedAt": "2025-11-19T03:32:50.010Z"
+    },
+    {
+      "id": "eMrz9Zm6EusCA-2sJ2sHD",
+      "userId": "2RbCyjNxIs8fuBIMGWJLT",
+      "filename": "1763523941170-MG1_PROFILE.png",
+      "original": "MG1_PROFILE.png",
+      "tenantId": "tenant-1",
+      "propertyId": "prop-1",
+      "documentType": "id_proof",
+      "description": "ID proof ",
+      "uploadedAt": "2025-11-19T03:45:41.198Z"
+    },
+    {
+      "id": "HqEcY6hquqYKUBoH5iKr2",
+      "userId": "2RbCyjNxIs8fuBIMGWJLT",
+      "filename": "1763523962370-FjJ71j9WIAEyc2Q.jpg",
+      "original": "FjJ71j9WIAEyc2Q.jpg",
+      "tenantId": "0eNoDnp4kRDvVvn-VRtgK",
+      "propertyId": "v9KZImvaO12HRQw4U2_Pe",
+      "documentType": "address_proof",
+      "description": "",
+      "uploadedAt": "2025-11-19T03:46:02.371Z"
     }
   ],
   "maintenance": [
@@ -62,6 +148,18 @@
       "propertyId": "Prop - 2",
       "room": "B123",
       "issue": "toti"
+    },
+    {
+      "id": "JzzHdtVIs92peha9noemw",
+      "userId": "2RbCyjNxIs8fuBIMGWJLT",
+      "propertyId": "v9KZImvaO12HRQw4U2_Pe",
+      "tenantId": "0eNoDnp4kRDvVvn-VRtgK",
+      "room": "A101",
+      "issue": "xgvxdfgv",
+      "priority": "low",
+      "category": "electrical",
+      "status": "open",
+      "createdAt": "2025-11-19T03:46:31.729Z"
     }
   ],
   "bookings": []
