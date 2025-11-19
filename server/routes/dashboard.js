@@ -22,7 +22,9 @@ router.get('/', (req, res) => {
   const userTenants = filterDataByUser(db.tenants, userId);
   const userProperties = filterDataByUser(db.properties, userId);
   
-  const totalRentCollected = userPayments.reduce((s, p) => s + (Number(p.amount) || 0), 0);
+  const totalRentCollected = userPayments
+    .filter(p => p.status === 'paid')
+    .reduce((s, p) => s + (Number(p.amount) || 0), 0);
   const pending = userTenants.filter(t => !userPayments.find(p => p.tenantId === t.id && p.date && p.status === 'paid')).length;
   const securityHeld = userTenants.reduce((s, t) => s + (Number(t.deposit) || 0), 0);
   const occupancy = userProperties.map(p => {
@@ -52,7 +54,7 @@ router.get('/income', (req, res) => {
   const series = months.map(m => {
     const sum = userPayments
       .filter(p => {
-        if (!p.date) return false;
+        if (!p.date || p.status !== 'paid') return false;
         const pd = new Date(p.date);
         return pd.getFullYear() === m.year && (pd.getMonth() + 1) === m.month;
       })
