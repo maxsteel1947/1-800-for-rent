@@ -58,27 +58,49 @@ export default function Tenants(){
 
   function create(e){
     e.preventDefault()
+    
+    // Validation
+    if (!form.name || !form.phone || !form.propertyId || !form.room) {
+      alert('Please fill in all required fields')
+      return
+    }
+    
+    // Check if room is already occupied
+    const existingTenant = tenants.find(t => 
+      t.propertyId === form.propertyId && 
+      t.room.toLowerCase() === form.room.toLowerCase()
+    )
+    
+    if (existingTenant) {
+      alert(`Room ${form.room} is already occupied by ${existingTenant.name}`)
+      return
+    }
+    
+    // Get property details for default rent/deposit
+    const property = properties.find(p => p.id === form.propertyId)
     const payload = {
       ...form,
-      rent: Number(form.rent) || 0,
-      deposit: Number(form.deposit) || 0
+      rent: Number(form.rent) || property?.rentPerRoom || 0,
+      deposit: Number(form.deposit) || property?.depositPerRoom || 0,
+      moveIn: form.moveIn || new Date().toISOString().split('T')[0]
     }
-    api.post('/tenants', payload).then(() => {
+    
+    api.post('/tenants', payload).then(()=>{
       setForm({ 
-        name: '', 
-        phone: '', 
-        propertyId: '', 
-        room: '', 
-        rent: 0, 
-        deposit: 0,
+        name:'', 
+        phone:'', 
+        propertyId:'', 
+        room:'', 
+        rent:0, 
+        deposit:0,
         moveIn: '',
-        moveOut: '',
-        rentDueDate: '',
         emergencyContact: '',
         idProofType: '',
         idNumber: ''
       })
       loadTenants()
+    }).catch(err => {
+      alert('Failed to add tenant: ' + (err.response?.data?.message || err.message))
     })
   }
 

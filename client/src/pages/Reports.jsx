@@ -127,8 +127,18 @@ export default function Reports() {
   }
 
   function getOverallStats() {
-    const filteredPayments = getFilteredPayments()
-    const totalRentCollected = filteredPayments.reduce((sum, p) => sum + p.amount, 0)
+    const { startDate, endDate } = getDateRangeFilter()
+    const filteredPayments = payments.filter(p => {
+      if (!p.date) return false
+      const paymentDate = new Date(p.date)
+      return paymentDate >= startDate && paymentDate <= endDate
+    })
+    
+    // Match Dashboard logic: only count paid payments
+    const totalRentCollected = filteredPayments
+      .filter(p => p.status === 'paid')
+      .reduce((sum, p) => sum + p.amount, 0)
+    
     const totalTenants = tenants.length
     const totalProperties = properties.length
     const totalDeposits = tenants.reduce((sum, t) => sum + (t.deposit || 0), 0)

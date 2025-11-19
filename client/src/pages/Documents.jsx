@@ -135,12 +135,16 @@ export default function Documents(){
 
   function getDocumentPreview(doc) {
     const extension = doc.original?.split('.').pop()?.toLowerCase()
-    if (['jpg', 'jpeg', 'png'].includes(extension)) {
+    if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(extension)) {
       return (
         <img 
-          src={`${api.defaults.baseURL.replace('/api','')}/uploads/${doc.filename}`}
+          src={`${api.defaults.baseURL}/../uploads/${doc.filename}`}
           alt={doc.original}
           style={{width: '60px', height: '60px', objectFit: 'cover', borderRadius: '4px'}}
+          onError={(e) => {
+            e.target.style.display = 'none'
+            e.target.nextSibling.style.display = 'flex'
+          }}
         />
       )
     }
@@ -304,7 +308,7 @@ export default function Documents(){
                           <td>
                             <div style={{maxWidth: '150px'}}>
                               <a 
-                                href={`${api.defaults.baseURL.replace('/api','')}/uploads/${doc.filename}`} 
+                                href={`${api.defaults.baseURL}/../uploads/${doc.filename}`}
                                 target="_blank" 
                                 rel="noreferrer"
                                 style={{color: '#0b5cff', textDecoration: 'none', fontSize: '12px'}}

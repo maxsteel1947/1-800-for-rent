@@ -90,7 +90,10 @@ form input, form select, form textarea{box-sizing:border-box}
 
 /* Improved mobile layout fixes */
 @media (max-width:768px){
-  .main{padding:16px}
+  .app-container{flex-direction:column}
+  .sidebar{width:100%;height:auto;position:relative;order:2}
+  .main{margin-left:0;padding:16px;order:1}
+  
   .card{padding:16px;margin-bottom:16px}
   .header{margin-bottom:20px}
   .header h1{font-size:20px}
@@ -101,12 +104,20 @@ form input, form select, form textarea{box-sizing:border-box}
   form input, form select, form textarea{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:6px;max-width:none}
   
   /* Table improvements for mobile */
-  .table-responsive{border:1px solid #e5e7eb;border-radius:6px}
-  .table-responsive table{min-width:600px} /* Ensure table stays readable */
+  .table-responsive{border:1px solid #e5e7eb;border-radius:6px;overflow-x:auto}
+  .table-responsive table{min-width:600px}
   
   /* Card grid improvements */
-  .card-grid{gap:8px}
+  .card-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))!important;gap:8px}
   .card-grid .card{padding:12px}
+  
+  /* Dashboard grid */
+  .grid-dashboard{grid-template-columns:1fr!important;gap:16px}
+  
+  /* Two column layouts */
+  .columns{flex-direction:column}
+  .form-column{min-width:auto;flex:unset;width:100%}
+  .list-column{width:100%}
 }
 
 @media (max-width:480px){
@@ -119,5 +130,8 @@ form input, form select, form textarea{box-sizing:border-box}
   
   /* Ensure sidebar doesn't break on very small screens */
   .sidebar{width:100%;min-width:200px}
+  
+  /* Card grid for very small screens */
+  .card-grid{grid-template-columns:1fr!important}
 }
 
