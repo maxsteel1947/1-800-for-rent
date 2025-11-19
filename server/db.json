@@ -149,6 +149,17 @@
       "documentType": "other",
       "description": "",
       "uploadedAt": "2025-11-19T04:04:16.069Z"
+    },
+    {
+      "id": "o9ro6QfLVcv_Sjc90Gdx2",
+      "userId": "MNs819PzU4E4Ruc7koZe9",
+      "filename": "1763527511350-FjJ71j9WIAEyc2Q.jpg",
+      "original": "FjJ71j9WIAEyc2Q.jpg",
+      "tenantId": "tenant-1",
+      "propertyId": "prop-1",
+      "documentType": "agreement",
+      "description": "",
+      "uploadedAt": "2025-11-19T04:45:11.351Z"
     }
   ],
   "maintenance": [
