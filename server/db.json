@@ -160,6 +160,28 @@
       "documentType": "agreement",
       "description": "",
       "uploadedAt": "2025-11-19T04:45:11.351Z"
+    },
+    {
+      "id": "bn6Mti0O_UaSb2Wpeq9gF",
+      "userId": "6R2QBsBpbrDghioOY2NiZ",
+      "filename": "1763528570363-Digital_Rupee.png",
+      "original": "Digital_Rupee.png",
+      "tenantId": "tenant-1",
+      "propertyId": "prop-1",
+      "documentType": "agreement",
+      "description": "",
+      "uploadedAt": "2025-11-19T05:02:50.382Z"
+    },
+    {
+      "id": "uBWYDINSOEdcr7xYkz7AE",
+      "userId": "6R2QBsBpbrDghioOY2NiZ",
+      "filename": "1763528597005-Screenshot 2025-11-15 043905.png",
+      "original": "Screenshot 2025-11-15 043905.png",
+      "tenantId": "ZFbAkbTsAzhvnR3md15Bv",
+      "propertyId": "vbrmcbQ3ikCBCDU0NHhdG",
+      "documentType": "police_verification",
+      "description": "",
+      "uploadedAt": "2025-11-19T05:03:17.005Z"
     }
   ],
   "maintenance": [

@@ -5,6 +5,7 @@ export default function Reports() {
   const [properties, setProperties] = useState([])
   const [tenants, setTenants] = useState([])
   const [payments, setPayments] = useState([])
+  const [dashboard, setDashboard] = useState(null)
   const [selectedProperty, setSelectedProperty] = useState('')
   const [dateRange, setDateRange] = useState('current-month')
   const [loading, setLoading] = useState(true)
@@ -21,6 +22,7 @@ export default function Reports() {
 
   function loadData() {
     Promise.all([
+      api.get('/dashboard').then(r => setDashboard(r.data)),
       api.get('/properties').then(r => setProperties(r.data)),
       api.get('/tenants').then(r => setTenants(r.data)),
       api.get('/payments').then(r => setPayments(r.data))
@@ -182,7 +184,13 @@ export default function Reports() {
         <div className="card">
           <div style={{fontSize: '13px', color: '#6b7280'}}>Total Rent Collected</div>
           <div style={{fontSize: '24px', fontWeight: 'bold', color: '#48bb78'}}>
-            ₹{overallStats.totalRentCollected.toLocaleString()}
+            ₹{(dashboard?.totalRentCollected || overallStats.totalRentCollected).toLocaleString()}
+          </div>
+        </div>
+        <div className="card">
+          <div style={{fontSize: '13px', color: '#6b7280'}}>Pending Dues</div>
+          <div style={{fontSize: '24px', fontWeight: 'bold', color: '#ed8936'}}>
+            {dashboard?.pendingDuesCount || 'N/A'}
           </div>
         </div>
         <div className="card">
@@ -202,7 +210,7 @@ export default function Reports() {
         <div className="card">
           <div style={{fontSize: '13px', color: '#6b7280'}}>Security Deposits Held</div>
           <div style={{fontSize: '24px', fontWeight: 'bold', color: '#4299e1'}}>
-            ₹{overallStats.totalDeposits.toLocaleString()}
+            ₹{(dashboard?.securityHeld || overallStats.totalDeposits).toLocaleString()}
           </div>
         </div>
       </div>

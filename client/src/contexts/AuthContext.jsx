@@ -29,6 +29,7 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
+      console.log('Attempting login with:', { email, API: api.defaults.baseURL })
       const response = await api.post('/auth/login', { email, password })
       const { token, user } = response.data
       
@@ -37,15 +38,22 @@ export function AuthProvider({ children }) {
       
       return { success: true }
     } catch (error) {
+      console.error('Login error:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+        config: error.config
+      })
       return { 
         success: false, 
-        error: error.response?.data?.message || 'Login failed' 
+        error: error.response?.data?.message || error.message || 'Login failed' 
       }
     }
   }
 
   const register = async (userData) => {
     try {
+      console.log('Attempting registration with:', { ...userData, API: api.defaults.baseURL })
       const response = await api.post('/auth/register', userData)
       const { token, user } = response.data
       
@@ -54,9 +62,15 @@ export function AuthProvider({ children }) {
       
       return { success: true }
     } catch (error) {
+      console.error('Registration error:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+        config: error.config
+      })
       return { 
         success: false, 
-        error: error.response?.data?.message || 'Registration failed' 
+        error: error.response?.data?.message || error.message || 'Registration failed' 
       }
     }
   }
