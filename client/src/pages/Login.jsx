@@ -33,7 +33,7 @@ export default function Login() {
       if (result.success) {
         setSuccess(isLogin ? 'Login successful! Redirecting...' : 'Account created successfully! Redirecting...')
         setTimeout(() => {
-          navigate('/')
+          navigate('/dashboard')
         }, 1500)
       } else {
         setError(result.error)

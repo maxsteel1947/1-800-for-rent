@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
 import Tenants from './pages/Tenants'
 import TenantDetail from './pages/TenantDetail'
@@ -38,7 +38,8 @@ function AuthenticatedApp() {
         </div>
         <div className="card">
           <Routes>
-            <Route path="/" element={<DashboardWrapper/>} />
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<DashboardWrapper/>} />
             <Route path="/tenants" element={<Tenants/>} />
             <Route path="/tenants/:id" element={<TenantDetailWrapper/>} />
             <Route path="/payments" element={<Payments/>} />
