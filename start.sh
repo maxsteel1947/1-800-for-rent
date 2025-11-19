@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
-# Change to the server directory and install + start the Node app
+# Change to the server directory and start the Node app
+# NOTE: dependencies should be installed during the Railway build step
 cd server
-echo "Installing server dependencies..."
-npm ci
-echo "Starting server..."
-npm start
+echo "Starting server (assumes dependencies already installed)..."
+node index.js
