@@ -33,8 +33,8 @@ export default function Tenants(){
   return (
     <div>
       <h2>Tenants</h2>
-      <div style={{display:'flex',gap:16}}>
-        <form onSubmit={create} style={{minWidth:320}}>
+      <div className="columns">
+        <form onSubmit={create} className="form-column">
           <div><label>Name<br/><input name="name" value={form.name} onChange={handleChange} required/></label></div>
           <div><label>Phone<br/><input name="phone" value={form.phone} onChange={handleChange} /></label></div>
           <div><label>Property ID<br/><input name="propertyId" value={form.propertyId} onChange={handleChange} /></label></div>
@@ -50,7 +50,7 @@ export default function Tenants(){
           <div style={{marginTop:8}}><button type="submit">Add Tenant</button></div>
         </form>
 
-        <div style={{flex:1}}>
+        <div className="list-column">
           <div style={{display:'flex',gap:8,marginBottom:12}}>
             <form onSubmit={searchByPhone} style={{display:'flex',gap:8}}>
               <input placeholder="Search by phone" value={queryPhone} onChange={e=>setQueryPhone(e.target.value)} />
@@ -59,7 +59,7 @@ export default function Tenants(){
             </form>
           </div>
           <h3>All Tenants</h3>
-          <table style={{width:'100%',borderCollapse:'collapse'}}>
+          <div className="table-responsive"><table>
             <thead><tr><th style={{textAlign:'left'}}>Name</th><th>Phone</th><th>Property</th><th>Room</th><th>Rent</th><th>Deposit</th><th></th></tr></thead>
             <tbody>
               {tenants.map(t=> (
@@ -74,7 +74,7 @@ export default function Tenants(){
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         </div>
       </div>
     </div>

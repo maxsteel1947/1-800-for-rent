@@ -16,17 +16,17 @@ export default function Maintenance(){
   return (
     <div>
       <h2>Maintenance</h2>
-      <div style={{display:'flex',gap:16}}>
-        <form onSubmit={create} style={{minWidth:320}}>
+      <div className="columns">
+        <form onSubmit={create} className="form-column">
           <div><label>Property ID<br/><input name="propertyId" value={form.propertyId} onChange={handle} /></label></div>
           <div><label>Room<br/><input name="room" value={form.room} onChange={handle} /></label></div>
           <div><label>Issue<br/><textarea name="issue" value={form.issue} onChange={handle}></textarea></label></div>
           <div style={{marginTop:8}}><button type="submit">Create Ticket</button></div>
         </form>
 
-        <div style={{flex:1}}>
+        <div className="list-column">
           <h3>Tickets</h3>
-          <table style={{width:'100%'}}>
+          <div className="table-responsive"><table>
             <thead><tr><th>Id</th><th>Property</th><th>Room</th><th>Issue</th><th>Status</th><th></th></tr></thead>
             <tbody>
               {tickets.map(t=> (
@@ -42,7 +42,7 @@ export default function Maintenance(){
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         </div>
       </div>
     </div>

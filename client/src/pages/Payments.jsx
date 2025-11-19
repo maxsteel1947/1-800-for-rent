@@ -19,8 +19,8 @@ export default function Payments(){
   return (
     <div>
       <h2>Payments</h2>
-      <div style={{display:'flex',gap:16}}>
-        <form onSubmit={create} style={{minWidth:320}}>
+      <div className="columns">
+        <form onSubmit={create} className="form-column">
           <div><label>Tenant ID<br/><input name="tenantId" value={form.tenantId} onChange={handle} /></label></div>
           <div><label>Property ID<br/><input name="propertyId" value={form.propertyId} onChange={handle} /></label></div>
           <div><label>Amount<br/><input type="number" name="amount" value={form.amount} onChange={handle} /></label></div>
@@ -28,9 +28,9 @@ export default function Payments(){
           <div style={{marginTop:8}}><button type="submit">Record Payment</button></div>
         </form>
 
-        <div style={{flex:1}}>
+        <div className="list-column">
           <h3>Recent Payments</h3>
-          <table style={{width:'100%',borderCollapse:'collapse'}}>
+          <div className="table-responsive"><table>
             <thead><tr><th>Date</th><th>Tenant</th><th>Property</th><th>Amount</th><th>Method</th><th></th></tr></thead>
             <tbody>
               {payments.map(p=> (
@@ -44,7 +44,7 @@ export default function Payments(){
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         </div>
       </div>
     </div>

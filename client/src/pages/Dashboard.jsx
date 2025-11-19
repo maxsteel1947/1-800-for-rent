@@ -84,9 +84,9 @@ export default function Dashboard({data}){
   }
 
   return (
-    <div style={{display:'grid',gridTemplateColumns:'1fr 420px',gap:20}}>
+    <div className="grid-dashboard">
       <div>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:12,marginBottom:12}}>
+        <div className="card-grid" style={{marginBottom:12}}>
           <div className="card">
             <div style={{fontSize:13,color:'#6b7280'}}>Total Rent Collected</div>
             <AnimatedNumber value={data.totalRentCollected} />

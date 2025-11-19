@@ -1,0 +1,1 @@
+{"name": "1-800-for-rent", "version": "1.0.0", "scripts": {"install-client": "cd client && npm install", "install-server": "cd server && npm install", "build-client": "cd client && npm run build", "start": "cd server && node index.js"}, "engines": {"node": ">=16"}}

@@ -23,8 +23,8 @@ export default function Documents(){
   return (
     <div>
       <h2>Documents</h2>
-      <div style={{display:'flex',gap:16}}>
-        <form onSubmit={upload} style={{minWidth:320}}>
+      <div className="columns">
+        <form onSubmit={upload} className="form-column">
           <div><label>Tenant ID<br/><input value={tenantId} onChange={e=>setTenantId(e.target.value)} /></label></div>
           <div style={{marginTop:8}}>
             <input type="file" onChange={e=>setFile(e.target.files[0])} />
@@ -32,7 +32,7 @@ export default function Documents(){
           <div style={{marginTop:8}}><button type="submit">Upload</button></div>
         </form>
 
-        <div style={{flex:1}}>
+        <div className="list-column">
           <h3>All Documents</h3>
           <ul>
             {docs.map(d=> (

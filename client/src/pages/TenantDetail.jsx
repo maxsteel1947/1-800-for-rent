@@ -21,8 +21,8 @@ export default function TenantDetail({ id }){
     <div>
       <h2>Tenant Details</h2>
       {!tenant ? <div>Loading...</div> : (
-        <div style={{display:'flex',gap:16}}>
-          <div style={{minWidth:360}}>
+        <div className="columns">
+          <div className="form-column" style={{minWidth:360}}>
             {editing ? (
               <div>
                 <div><label>Name<br/><input value={form.name||''} onChange={e=>setForm({...form,name:e.target.value})}/></label></div>
@@ -55,9 +55,9 @@ export default function TenantDetail({ id }){
             )}
           </div>
 
-          <div style={{flex:1}}>
+          <div className="list-column">
             <h3>Payment History</h3>
-            <table style={{width:'100%'}}>
+            <div className="table-responsive"><table>
               <thead><tr><th>Date</th><th>Amount</th><th>Method</th></tr></thead>
               <tbody>
                 {payments.map(p=> (
@@ -68,7 +68,7 @@ export default function TenantDetail({ id }){
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </table></div>
           </div>
         </div>
       )}

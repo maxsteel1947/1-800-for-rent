@@ -51,3 +51,39 @@ td{padding:10px;border-bottom:1px solid #f1f5f9}
   .sidebar{width:100%;order:2}
 }
 
+/* Dashboard grid layout */
+.grid-dashboard{display:grid;grid-template-columns:1fr 420px;gap:20px}
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12}
+
+@media (max-width:900px){
+  .grid-dashboard{grid-template-columns:1fr}
+  .card-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:600px){
+  .card-grid{grid-template-columns:1fr}
+}
+
+/* Layout utilities for pages */
+.columns{display:flex;gap:16px;align-items:flex-start}
+.form-column{min-width:320px;flex:0 0 320px}
+.list-column{flex:1}
+.table-responsive{overflow-x:auto}
+
+@media (max-width:800px){
+  .columns{flex-direction:column}
+  .form-column{min-width:auto;flex:unset;width:100%}
+  .list-column{width:100%}
+  .header h1{font-size:18px}
+}
+
+/* Make tables horizontally scrollable on small screens */
+.table-responsive table{width:100%;border-collapse:collapse}
+.table-responsive thead th{background:#f8fafc;text-align:left;padding:8px;border-bottom:1px solid #eef2f7}
+.table-responsive td{padding:10px;border-bottom:1px solid #f1f5f9}
+
+/* Buttons and inputs adjustments */
+form input, form select, form textarea{box-sizing:border-box}
+@media (max-width:480px){
+  button{width:100%;padding:10px}
+}
+
