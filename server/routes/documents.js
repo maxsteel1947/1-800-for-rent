@@ -4,10 +4,11 @@ const multer = require('multer');
 const path = require('path');
 const { readDB, writeDB } = require('../db');
 const { nanoid } = require('nanoid');
-const { authenticateToken } = require('../middleware/auth');
+const { authenticateToken, userDataAccess } = require('../middleware/auth');
 
 // Apply auth middleware to all routes
 router.use(authenticateToken);
+router.use(userDataAccess);
 
 function filterDataByUser(data, userId) {
   if (!userId) return data;
@@ -25,7 +26,7 @@ router.post('/upload', upload.single('file'), (req, res) => {
   const db = readDB();
   const doc = { 
     id: nanoid(), 
-    userId: req.user.id,
+    userId: req.userId,
     filename: req.file.filename, 
     original: req.file.originalname, 
     tenantId: req.body.tenantId || null, 
@@ -41,24 +42,31 @@ router.post('/upload', upload.single('file'), (req, res) => {
 
 router.get('/tenant/:tenantId', (req, res) => {
   const db = readDB();
-  const userDocuments = filterDataByUser(db.documents, req.user.id);
-  res.json(userDocuments.filter(d => d.tenantId === req.params.tenantId));
+  const userDocuments = db.documents.filter(d => d.tenantId === req.params.tenantId && d.userId === req.userId);
+  res.json(userDocuments);
 });
 
 router.get('/', (req, res) => {
   const db = readDB();
-  const userDocuments = filterDataByUser(db.documents, req.user.id);
+  const userDocuments = db.documents.filter(d => d.userId === req.userId);
   res.json(userDocuments);
 });
 
 router.delete('/:id', (req, res) => {
   const db = readDB();
-  const idx = db.documents.findIndex(x => x.id === req.params.id && x.userId === req.user.id);
-  if (idx === -1) return res.status(404).json({ message: 'Document not found' });
+  const idx = db.documents.findIndex(d => d.id === req.params.id && d.userId === req.userId);
+  if (idx === -1) return res.status(404).json({ error: 'Not found' });
+  const doc = db.documents[idx];
+  
+  // Delete file from filesystem
+  const filePath = path.join(uploadDir, doc.filename);
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+  }
   
   db.documents.splice(idx, 1);
   writeDB(db);
-  res.json({ message: 'Document deleted' });
+  res.json({ success: true });
 });
 
 module.exports = router;
