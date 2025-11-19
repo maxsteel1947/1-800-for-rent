@@ -1,14 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Installing client dependencies..."
-cd client && npm install
-
-echo "Building client..."
-npm run build
-
-echo "Installing server dependencies..."
-cd ../server && npm install
-
-echo "Starting server..."
+# Change to the server directory and start the Node app
+# NOTE: dependencies should be installed during the Railway build step
+cd server
+echo "Starting server (assumes dependencies already installed)..."
 node index.js
