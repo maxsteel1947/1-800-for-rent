@@ -7,15 +7,168 @@ const { nanoid } = require('nanoid');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret';
 
-router.post('/login', (req, res) => {
-  const { email, password } = req.body;
+// Helper functions for user management
+const createUser = (userData) => {
   const db = readDB();
-  const user = db.users.find(u => u.email === email);
-  if (!user) return res.status(401).json({ error: 'Invalid credentials' });
-  const ok = bcrypt.compareSync(password, user.password);
-  if (!ok) return res.status(401).json({ error: 'Invalid credentials' });
-  const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
-  res.json({ token, user: { id: user.id, name: user.name, email: user.email, role: user.role } });
+  const user = {
+    id: nanoid(),
+    email: userData.email,
+    password: bcrypt.hashSync(userData.password, 10),
+    fullName: userData.fullName || '',
+    companyName: userData.companyName || '',
+    phone: userData.phone || '',
+    createdAt: new Date().toISOString(),
+    isActive: true
+  };
+  
+  // Initialize user's data
+  db.users = db.users || [];
+  db.users.push(user);
+  
+  // Create user's isolated data
+  const userId = user.id;
+  db.properties = db.properties || [];
+  db.tenants = db.tenants || [];
+  db.payments = db.payments || [];
+  db.documents = db.documents || [];
+  db.maintenance = db.maintenance || [];
+  
+  writeDB(db);
+  return user;
+};
+
+const findUserByEmail = (email) => {
+  const db = readDB();
+  return (db.users || []).find(user => user.email === email);
+};
+
+// Register endpoint
+router.post('/register', async (req, res) => {
+  try {
+    const { email, password, fullName, companyName, phone } = req.body;
+
+    // Validation
+    if (!email || !password || !fullName) {
+      return res.status(400).json({ message: 'Email, password, and full name are required' });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({ message: 'Password must be at least 6 characters long' });
+    }
+
+    // Check if user already exists
+    const existingUser = findUserByEmail(email);
+    if (existingUser) {
+      return res.status(400).json({ message: 'User with this email already exists' });
+    }
+
+    // Create new user
+    const user = createUser({ email, password, fullName, companyName, phone });
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { userId: user.id, email: user.email },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    res.status(201).json({
+      message: 'User created successfully',
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+        fullName: user.fullName,
+        companyName: user.companyName,
+        phone: user.phone
+      }
+    });
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Login endpoint
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Validation
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
+    // Find user
+    const user = findUserByEmail(email);
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Check password
+    const isPasswordValid = bcrypt.compareSync(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Check if user is active
+    if (!user.isActive) {
+      return res.status(401).json({ message: 'Account is deactivated' });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { userId: user.id, email: user.email },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    res.json({
+      message: 'Login successful',
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+        fullName: user.fullName,
+        companyName: user.companyName,
+        phone: user.phone
+      }
+    });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Verify token endpoint
+router.get('/verify', (req, res) => {
+  try {
+    const token = req.headers.authorization?.replace('Bearer ', '');
+    
+    if (!token) {
+      return res.status(401).json({ message: 'No token provided' });
+    }
+
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const user = findUserByEmail(decoded.email);
+    
+    if (!user || !user.isActive) {
+      return res.status(401).json({ message: 'Invalid token or user deactivated' });
+    }
+
+    res.json({
+      user: {
+        id: user.id,
+        email: user.email,
+        fullName: user.fullName,
+        companyName: user.companyName,
+        phone: user.phone
+      }
+    });
+  } catch (error) {
+    console.error('Token verification error:', error);
+    res.status(401).json({ message: 'Invalid token' });
+  }
 });
 
 // simple OTP stub endpoint (for tenants)
@@ -27,14 +180,5 @@ router.post('/otp/request', (req, res) => {
   res.json({ phone, otp, message: 'OTP generated (demo). Implement SMS provider to send.' });
 });
 
-router.post('/register', (req, res) => {
-  const { name, email, password, role } = req.body;
-  const db = readDB();
-  if (db.users.find(u => u.email === email)) return res.status(400).json({ error: 'Email exists' });
-  const user = { id: nanoid(), name, email, role: role || 'manager', password: bcrypt.hashSync(password || 'changeme', 8) };
-  db.users.push(user);
-  writeDB(db);
-  res.json({ id: user.id, name: user.name, email: user.email, role: user.role });
-});
 
 module.exports = router;

@@ -7,39 +7,103 @@ import { useParams } from 'react-router-dom'
 import Payments from './pages/Payments'
 import Documents from './pages/Documents'
 import Maintenance from './pages/Maintenance'
+import Login from './pages/Login'
 import Nav from './components/Nav'
+import ProtectedRoute from './components/ProtectedRoute'
+import { AuthProvider } from './contexts/AuthContext'
 
 export default function App(){
   return (
     <BrowserRouter>
-      <div className="app-container">
-        <Nav />
-        <main className="main">
-          <div className="header">
-            <h1>Dashboard — 1-800-for-rent</h1>
-          </div>
-          <div className="card">
-            <Routes>
-              <Route path="/" element={<DashboardWrapper/>} />
-              <Route path="/tenants" element={<Tenants/>} />
-              <Route path="/tenants/:id" element={<TenantDetailWrapper/>} />
-              <Route path="/payments" element={<Payments/>} />
-              <Route path="/documents" element={<Documents/>} />
-              <Route path="/maintenance" element={<Maintenance/>} />
-            </Routes>
-          </div>
-        </main>
-      </div>
+      <AuthProvider>
+        <div className="app-container">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/*" element={<AuthenticatedApp />} />
+          </Routes>
+        </div>
+      </AuthProvider>
     </BrowserRouter>
+  )
+}
+
+function AuthenticatedApp() {
+  return (
+    <ProtectedRoute>
+      <Nav />
+      <main className="main">
+        <div className="header">
+          <h1>Dashboard — 1-800-for-rent</h1>
+        </div>
+        <div className="card">
+          <Routes>
+            <Route path="/" element={<DashboardWrapper/>} />
+            <Route path="/tenants" element={<Tenants/>} />
+            <Route path="/tenants/:id" element={<TenantDetailWrapper/>} />
+            <Route path="/payments" element={<Payments/>} />
+            <Route path="/documents" element={<Documents/>} />
+            <Route path="/maintenance" element={<Maintenance/>} />
+          </Routes>
+        </div>
+      </main>
+    </ProtectedRoute>
   )
 }
 
 function DashboardWrapper(){
   const [dashboard, setDashboard] = React.useState(null)
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(null)
+  
   React.useEffect(()=>{
-    fetch((import.meta.env.VITE_API_URL || 'http://localhost:4000') + '/api/dashboard')
-      .then(r=>r.json()).then(d=>setDashboard(d)).catch(()=>{})
-  },[])
+    const fetchDashboard = async () => {
+      try {
+        setLoading(true)
+        const response = await fetch((import.meta.env.VITE_API_URL || 'http://localhost:4000') + '/api/dashboard')
+        if (!response.ok) {
+          throw new Error('Failed to fetch dashboard data')
+        }
+        const data = await response.json()
+        setDashboard(data)
+      } catch (err) {
+        setError(err.message)
+      } finally {
+        setLoading(false)
+      }
+    }
+    
+    fetchDashboard()
+  }, [])
+
+  if (loading) {
+    return (
+      <div style={{ textAlign: 'center', padding: '40px' }}>
+        <div style={{ fontSize: '18px', color: '#667eea' }}>Loading dashboard...</div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div style={{ textAlign: 'center', padding: '40px' }}>
+        <div style={{ fontSize: '18px', color: '#e53e3e' }}>Error: {error}</div>
+        <button 
+          onClick={() => window.location.reload()} 
+          style={{ 
+            marginTop: '16px', 
+            padding: '8px 16px', 
+            background: '#667eea', 
+            color: 'white', 
+            border: 'none', 
+            borderRadius: '6px',
+            cursor: 'pointer'
+          }}
+        >
+          Retry
+        </button>
+      </div>
+    )
+  }
 
   return <Dashboard data={dashboard} />
 }
